@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-
+import {Picture, Loading } from "@element-plus/icons-vue"
 </script>
 
 <template>
@@ -11,11 +11,31 @@
             <div class="content">
                 <el-form ref="ruleFormRef">
                     <el-form-item prop="username">
-                        <el-input type="text" placeholder="用户名" size="large" />
+                        <el-input type="text" tabindex="1" placeholder="用户名" size="large" />
                     </el-form-item>
                     <el-form-item prop="password">
-                        <el-input placeholder="密码" size="large" show-password />
+                        <el-input type="password" tabindex="2" placeholder="密码" size="large" show-password />
                     </el-form-item>
+
+                    <el-form-item prop="code">
+                        <el-input type="text" tabindex="3" placeholder="验证码" maxlength="7" size="large" />
+                        <!-- 验证码 插槽-->
+                        <template #append>
+                            <el-image>
+                                <template #placeholder>
+                                    <el-icon>
+                                        <Picture/>
+                                    </el-icon>
+                                </template>
+                                <template #error>
+                                    <el-icon>
+                                        <Loading/>
+                                    </el-icon>
+                                </template>
+                            </el-image>
+                        </template>
+                    </el-form-item>
+                    <el-button type="primary" size="large">登录</el-button>
                 </el-form>
             </div>
 
