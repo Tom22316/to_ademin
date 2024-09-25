@@ -1,5 +1,24 @@
 <script lang="ts" setup>
 import {Picture, Loading } from "@element-plus/icons-vue"
+import { reactive, ref } from "vue";
+import { type LoginRequestData } from "../../api/login/type/login"
+// 验证码图片
+const codeUrl = ref("")
+
+//登录表单数据
+// loginFormData: LoginRequestData 限定loginFormData对象的类型是LoginRequestData类型
+const loginFormData: LoginRequestData = reactive({
+    usename: "admin",
+    password : "12345678",
+    code:""
+})
+
+//创建验证码
+const createCode = () => {
+    loginFormData.code = "";
+    codeUrl.value = "";
+    
+}
 </script>
 
 <template>
@@ -21,7 +40,7 @@ import {Picture, Loading } from "@element-plus/icons-vue"
                         <el-input type="text" tabindex="3" placeholder="验证码" maxlength="7" size="large" />
                         <!-- 验证码 插槽-->
                         <template #append>
-                            <el-image>
+                            <el-image :src="codeUrl">
                                 <template #placeholder>
                                     <el-icon>
                                         <Picture/>
@@ -38,7 +57,6 @@ import {Picture, Loading } from "@element-plus/icons-vue"
                     <el-button type="primary" size="large">登录</el-button>
                 </el-form>
             </div>
-
         </div>
     </div>
 </template>
