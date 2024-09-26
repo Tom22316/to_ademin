@@ -1,7 +1,7 @@
 // ref 创建响应式的数据
 // watchEffect 用于监视响应式数据的变化并执行副作用
 import { ref, watchEffect } from "vue"
-import { getActiveThemeName, setActiveThemeName } from "../utils/cach/local-storage"
+import { getActiveThemeName, setActiveThemeName } from "../utils/cache/local-storage"
 
 const DEFAULT_THEME_NAME = "normal"
 // 取DefaultThemeName类型和DEFAULT_THEME_NAME一样 将来赋值给DefaultThemeName的值的类型必须是和DEFAULT_THEME_NAME一样
