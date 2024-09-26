@@ -2,6 +2,7 @@
 import {Picture, Loading } from "@element-plus/icons-vue"
 import { reactive, ref } from "vue";
 import { type LoginRequestData } from "../../api/login/type/login"
+import { getLoginCodeApi } from "../../api/login";
 // 验证码图片
 const codeUrl = ref("")
 
@@ -17,8 +18,13 @@ const loginFormData: LoginRequestData = reactive({
 const createCode = () => {
     loginFormData.code = "";
     codeUrl.value = "";
-    
+    getLoginCodeApi().then((res) => {
+        codeUrl.value = res.data;
+    })
 }
+
+// 初始化验证码
+createCode()
 </script>
 
 <template>
@@ -40,7 +46,7 @@ const createCode = () => {
                         <el-input type="text" tabindex="3" placeholder="验证码" maxlength="7" size="large" />
                         <!-- 验证码 插槽-->
                         <template #append>
-                            <el-image :src="codeUrl">
+                            <el-image :src="codeUrl" @click="createCode">
                                 <template #placeholder>
                                     <el-icon>
                                         <Picture/>
