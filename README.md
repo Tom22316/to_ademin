@@ -14,8 +14,8 @@
 12--关于js-cookie库
 13--关于http请求
 14--关于命名空间导入
-
-
+15--关于vue.js的键盘监听事件
+16--关于pinia
 
 
 1. 关于export
@@ -56,6 +56,26 @@ function Counter() {
 
 8.关于回调函数
 回调函数是指作为参数传递给另一个函数的函数。它通常在特定事件发生或某个操作完成后被调用。回调函数广泛用于异步编程和事件处理。
+如果一个函数作为参数传递给另外一个函数这时这个被传递的函数就是回调函数
+例如：
+// 定义一个回调函数
+function myCallback() {
+    console.log("This is a callback function");
+}
+
+// 定义一个接受函数作为参数的函数
+function executeCallback(callback) {
+    console.log("Before calling the callback.");
+    callback(); // 调用传入的回调函数
+    console.log("After calling the callback.");
+}
+
+// 将回调函数传递给另一个函数
+executeCallback(myCallback);
+//validate会对loginFormRef.value做校验，校验完成之后传入valid: boolean, fields给回调函数，回调函数去处理验证表单逻辑
+loginFormRef.value?.validate((valid: boolean, fields) => {
+  // 回调函数的内容
+});
 
 9.关于高阶函数
 会返回一个函数这个返回的函数可以是一个泛型函数，<T> 表示类型参数，可以在调用时指定返回值的类型。
@@ -82,3 +102,9 @@ merge 用于深度合并两个或多个对象。它会递归地合并源对象�
 
 14.关于命名空间导入
 命名空间导入: * as Login 表示将模块中所有导出的类型作为一个命名空间 Login 导入。这种方式允许你使用 Login 作为前缀来引用从 ./types/login 模块导入的所有类型。
+
+15.关于vue.js的键盘监听事件
+keyup.enter--按下回车触发函数
+
+16.关于pinia
+import { defineStore } from "pinia" 是 Pinia 状态管理库中的一个函数，用于定义一个新的 store

@@ -2,7 +2,7 @@
 // 声明LoginRequestData接口
 export interface LoginRequestData {
     // 账号
-    usename: "admin" | "editor"
+    username: "admin" | "editor"
     // 密码
     password: string
     // 验证码

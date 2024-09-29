@@ -3,16 +3,36 @@ import {Picture, Loading } from "@element-plus/icons-vue"
 import { reactive, ref } from "vue";
 import { type LoginRequestData } from "../../api/login/type/login"
 import { getLoginCodeApi } from "../../api/login";
+import { type FormRules, type FormInstance } from "element-plus";
+
 // 验证码图片
 const codeUrl = ref("")
+//登录表单元素的引用 
+const ruleFormRef = ref<FormInstance | null>(null)
 
 //登录表单数据
 // loginFormData: LoginRequestData 限定loginFormData对象的类型是LoginRequestData类型
 const loginFormData: LoginRequestData = reactive({
-    usename: "admin",
+    username: "admin",
     password : "12345678",
     code:""
 })
+
+//表单校验
+//FormRules 是一个类型或接口，通常在表单验证中使用，以定义各个输入字段的验证规则 
+const loginFormRules : FormRules = {
+    username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
+    passward:[
+        {required:true , message: "请输入密码" , trigger:"blur"},
+        {min: 8 , max: 16 ,message:"长度再8到16个字符" , trigger: "blur"}
+    ],
+    code: [{ required: true, message: "请输入验证码", trigger: "blur" }]
+}
+
+// 登录逻辑
+const handleLogin = () =>{
+
+}
 
 //创建验证码
 const createCode = () => {
@@ -34,27 +54,30 @@ createCode()
         <div class="login-card">
             <div class="title">11</div>
             <div class="content">
-                <el-form ref="ruleFormRef">
-                    <el-form-item prop="username">
-                        <el-input type="text" tabindex="1" placeholder="用户名" size="large" />
+                <el-form ref="ruleFormRef" :model="loginFormData" :rlues="loginFormRules" @keyup.enter="handleLogin" >
+                    <el-form-item prop=" username">
+                    <el-input type="text" tabindex="1" placeholder="用户名" v-model.trim="loginFormData.username"
+                        size="large" />
                     </el-form-item>
                     <el-form-item prop="password">
-                        <el-input type="password" tabindex="2" placeholder="密码" size="large" show-password />
+                        <el-input type="password" tabindex="2" placeholder="密码" v-model.trim="loginFormData.password"
+                            size="large" show-password />
                     </el-form-item>
 
                     <el-form-item prop="code">
-                        <el-input type="text" tabindex="3" placeholder="验证码" maxlength="7" size="large" />
+                        <el-input type="text" tabindex="3" placeholder="验证码" maxlength="7"
+                            v-model.trim="loginFormData.code" size="large" />
                         <!-- 验证码 插槽-->
                         <template #append>
                             <el-image :src="codeUrl" @click="createCode">
                                 <template #placeholder>
                                     <el-icon>
-                                        <Picture/>
+                                        <Picture />
                                     </el-icon>
                                 </template>
                                 <template #error>
                                     <el-icon>
-                                        <Loading/>
+                                        <Loading />
                                     </el-icon>
                                 </template>
                             </el-image>
